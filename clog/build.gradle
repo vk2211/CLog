@@ -40,7 +40,7 @@ def gitUrl = 'https://github.com/vk2211/CLog.git'
 def projDesc = 'An easy log that you can easily control.'
 def libName = "clog"
 
-group = "me.songning.CircleView"
+group = "cn.yaochuan.clog"
 version = android.defaultConfig.versionName
 
 //生成源文件
