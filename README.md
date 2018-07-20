@@ -10,3 +10,6 @@ compile 'cn.yc.clog:clog:1.1'
 
 初始化：
 CLog.open();
+
+设置全局TAG
+CLog.setGlobalTag("Installer:");
