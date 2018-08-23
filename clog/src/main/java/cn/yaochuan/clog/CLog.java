@@ -22,10 +22,17 @@ import java.util.List;
  */
 public abstract class CLog {
 	protected static String CLTAG = "CLog:";
-	private static CLog sInstance = new NoLog();
+	protected static final int LOG_LEVEL_CRITICAL = 0;
+	protected static final int LOG_LEVEL_ERROR = 1;
+	protected static final int LOG_LEVEL_WARNING = 2;
+	protected static final int LOG_LEVEL_INFO = 3;
+	protected static final int LOG_LEVEL_DEBUG = 4;
+	protected static final int LOG_LEVEL_VERBOSE = 5;
+	private static final int MAX_LOG_LENGTH = 4000;
+	private static CLog sInstance = new CLogImpl();
 
-	public CLog() {
-	}
+//	public CLog() {
+//	}
 
 	/**
 	 * Use android original log. If this function not called, there may be NO log.
@@ -73,6 +80,7 @@ public abstract class CLog {
 		if (sInstance instanceof CLogImplEx) {
 			CLogImplEx.destory();
 		}
+		sInstance = new NoLog();
 	}
 
 	public static void v(String tag, String msg) {
@@ -129,9 +137,55 @@ public abstract class CLog {
 		}
 	}
 
+	public static void f(String tag, String format, Object... args) {
+		l(tag, String.format(format, args), LOG_LEVEL_DEBUG);
+	}
+
+	public static void f(String tag, int logLevel, String format, Object... args) {
+		l(tag, String.format(format, args), logLevel);
+	}
+
 	public static void e(String tag, List msg) {
 		for (int i = 0; i < msg.size(); i++) {
 			e(tag, msg.get(i).toString());
+		}
+	}
+
+	public static void l(String tag, String longStr, int logLevel) {
+		int index = 0;
+		int logNum = longStr.length() / MAX_LOG_LENGTH;
+		if (logNum > 0) {
+			for (int i = 0; i < logNum; i++) {
+				String sub = longStr.substring(index, index + MAX_LOG_LENGTH);
+				printSub(tag, sub, logLevel);
+				index += MAX_LOG_LENGTH;
+			}
+		} else {
+			printSub(tag, longStr, logLevel);
+		}
+	}
+
+	public static void l(String tag, String longStr) {
+		l(tag, longStr, LOG_LEVEL_DEBUG);
+	}
+
+	private static void printSub(String tag, String logStr, int logLevel) {
+		switch (logLevel) {
+		case LOG_LEVEL_ERROR:
+			e(tag, logStr);
+			break;
+		case LOG_LEVEL_WARNING:
+			w(tag, logStr);
+			break;
+		case LOG_LEVEL_INFO:
+			i(tag, logStr);
+			break;
+		case LOG_LEVEL_DEBUG:
+			d(tag, logStr);
+			break;
+		case LOG_LEVEL_VERBOSE:
+			v(tag, logStr);
+			break;
 		}
 	}
 }

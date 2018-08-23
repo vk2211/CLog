@@ -24,7 +24,7 @@ import android.util.Log;
  *
  *
  */
-public class CLogImpl extends CLog {
+class CLogImpl extends CLog {
 	/*
 	 * (non-Javadoc)
 	 * 

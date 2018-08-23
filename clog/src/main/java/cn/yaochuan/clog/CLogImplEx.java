@@ -14,7 +14,7 @@
 package cn.yaochuan.clog;
 
 
-public class CLogImplEx extends CLogImpl {
+class CLogImplEx extends CLogImpl {
 	// 'FileStreamLog'类有问题，在流量201版中打日志数组越界，这边改成 'FileWriterLog'类来打日志
 	//private static FileLog sFileLog = new FileStreamLog();
 	private static FileLog sFileLog = new FileWriterLog();

@@ -11,14 +11,6 @@ public abstract class FileLog extends CLog {
 	private static final String TAG_HEADER = "CLog";
 	private static final String TAG_BODY = "FileStreamLog";
 	protected static final String TAG = TAG_HEADER + ":" + TAG_BODY;
-
-	protected static final int LOG_LEVEL_CRITICAL = 0;
-	protected static final int LOG_LEVEL_ERROR = 1;
-	protected static final int LOG_LEVEL_WARNING = 2;
-	protected static final int LOG_LEVEL_INFO = 3;
-	protected static final int LOG_LEVEL_DEBUG = 4;
-	protected static final int LOG_LEVEL_VERBOSE = 5;
-
 	protected boolean mOnlyTime = true;
 
 	/**
